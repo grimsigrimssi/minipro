@@ -1,0 +1,152 @@
+package com.javaex.ex01;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+
+public class PhoneApp {
+
+    public static void main(String[] args) throws IOException{
+    	
+    	
+    	InputStream in = new FileInputStream("./phoneDB.txt");
+		InputStreamReader ir = new InputStreamReader(in);
+		BufferedReader br = new BufferedReader(ir);
+		
+		List<Person> pList = new ArrayList<Person>();
+		
+    	Scanner sc = new Scanner(System.in);
+    	Boolean run = true;
+    	int menuNo; 
+    	String name;
+    	String hp;
+    	String phone;
+    	
+    		
+    	System.out.println("********************************");
+    	System.out.println("*        전화번호 관리 프로그램                 *");
+    	System.out.println("********************************");
+    	
+    	
+    	while(run) {
+    		System.out.println("");
+    		System.out.println("1.리스트   2.등록   3.삭제   4.검색   5.종료");
+    		System.out.println("--------------------------------");
+    		System.out.print(">메뉴번호:");
+    		System.out.println("");
+    		
+    		menuNo = sc.nextInt();
+    	
+    		switch(menuNo) {
+    		
+    		case 1 : 			
+    			System.out.println("<1.리스트>");
+    			
+    			InputStream is = new FileInputStream("./phoneDBUpdated.txt");
+    			InputStreamReader isr = new InputStreamReader(is);
+    			BufferedReader bfr = new BufferedReader(isr);
+    			
+    			while(true) {
+    				String str = br.readLine();
+    				if (str == null) {
+    					break;
+    				}
+    				String[] strArray = str.split(",");	
+    				
+    				Person personData = new Person(strArray[0], strArray[1], strArray[2]);
+    				
+    				pList.add(personData);	
+    			}
+    									
+    			for(int i=0; i<pList.size(); i++) {
+    				System.out.print(i+1 + ".");
+    				pList.get(i).showInfo();
+    			}
+    			
+    			break;
+    			
+    			
+    		case 2 :
+    			System.out.print(">이름: ");
+    			name = sc.next();
+    			
+    			System.out.print(">휴대전화: ");
+    			hp = sc.next();
+    			
+    			System.out.print(">회사전화:");
+    			phone = sc.next();
+    			
+    			System.out.println("[등록되었습니다.]");
+    			
+    			Person person = new Person(name, hp, phone);
+    			
+    			pList.add(person);
+    			
+    			OutputStream out = new FileOutputStream("./phoneDBUpdated.txt");
+    			OutputStreamWriter or = new OutputStreamWriter(out);
+    			BufferedWriter bw = new BufferedWriter(or);
+    			
+    			break;
+    			
+    			
+    		case 3 :
+    			System.out.print(">번호: ");
+    			int listNum = sc.nextInt();
+    				
+    			while(true) {	
+    				String str = br.readLine();
+    				if (str == null) {
+    					break;
+    				}
+    				
+    				String[] strArray = str.split(",");	
+    				
+    				Person personData = new Person(strArray[0], strArray[1], strArray[2]);
+    				
+    				pList.add(personData);	
+    			}
+				
+				Person p = pList.remove(listNum-1);
+    		
+    			System.out.println("[삭제되었습니다.]");
+    			
+    			
+    						
+    			break;
+    		
+    		case 4 :
+	
+    			break;
+    		
+    		case 5 :
+    			System.out.println("********************************");
+    	    	System.out.println("*            감사합니다                          *");
+    	    	System.out.println("********************************");
+    			run = false;
+    			break;
+    		
+    		default :
+    			System.out.println("다시 입력해주세요");	
+    			break;
+     		
+    		}//switch
+    	
+    		
+    	}//while
+    	
+    	
+    	br.close();
+    	sc.close();  	  	  	
+    }    	
+}
