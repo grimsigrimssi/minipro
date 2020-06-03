@@ -24,6 +24,7 @@ public class PhoneApp {
 		InputStreamReader ir = new InputStreamReader(in);
 		BufferedReader br = new BufferedReader(ir);
 		
+		
 		List<Person> pList = new ArrayList<Person>();
 		
     	Scanner sc = new Scanner(System.in);
@@ -53,12 +54,12 @@ public class PhoneApp {
     		case 1 : 			
     			System.out.println("<1.리스트>");
     			
-    			InputStream is = new FileInputStream("./phoneDBUpdated.txt");
-    			InputStreamReader isr = new InputStreamReader(is);
-    			BufferedReader bfr = new BufferedReader(isr);
+    			InputStream in1 = new FileInputStream("./phoneDB.txt");
+    			InputStreamReader ir1 = new InputStreamReader(in1);
+    			BufferedReader br1= new BufferedReader(ir1);
     			
     			while(true) {
-    				String str = br.readLine();
+    				String str = br1.readLine();
     				if (str == null) {
     					break;
     				}
@@ -74,10 +75,14 @@ public class PhoneApp {
     				pList.get(i).showInfo();
     			}
     			
+    			br.close();	
+    			
     			break;
     			
     			
     		case 2 :
+    			System.out.println("<2.등록>");
+    			
     			System.out.print(">이름: ");
     			name = sc.next();
     			
@@ -93,19 +98,25 @@ public class PhoneApp {
     			
     			pList.add(person);
     			
-    			OutputStream out = new FileOutputStream("./phoneDBUpdated.txt");
-    			OutputStreamWriter or = new OutputStreamWriter(out);
-    			BufferedWriter bw = new BufferedWriter(or);
+    			OutputStream out = new FileOutputStream("./phoneDB.txt");
+    			OutputStreamWriter ow = new OutputStreamWriter(out);
+    			BufferedWriter bw = new BufferedWriter(ow);
     			
     			break;
     			
     			
     		case 3 :
+    			System.out.println("<3.삭제>");
+    			
     			System.out.print(">번호: ");
-    			int listNum = sc.nextInt();
+    			int delNum = sc.nextInt();
+    			
+    			InputStream in3 = new FileInputStream("./phoneDB.txt");
+    			InputStreamReader ir3 = new InputStreamReader(in3);
+    			BufferedReader br3= new BufferedReader(ir3);
     				
     			while(true) {	
-    				String str = br.readLine();
+    				String str = br3.readLine();
     				if (str == null) {
     					break;
     				}
@@ -117,16 +128,32 @@ public class PhoneApp {
     				pList.add(personData);	
     			}
 				
-				Person p = pList.remove(listNum-1);
+				Person p = pList.remove(delNum-1);
     		
     			System.out.println("[삭제되었습니다.]");
     			
-    			
-    						
+    			OutputStream out3 = new FileOutputStream("./phoneDB.txt");
+    			OutputStreamWriter ow3 = new OutputStreamWriter(out3);
+    			BufferedWriter bw3 = new BufferedWriter(ow3);
+    									
     			break;
     		
     		case 4 :
-	
+    			System.out.println("<4.검색>");
+    			System.out.println(">번호: ");
+    			String inputStr = sc.next();
+    			
+    			InputStream in4 = new FileInputStream("./phoneDB.txt");
+    			InputStreamReader ir4 = new InputStreamReader(in4);
+    			BufferedReader br4= new BufferedReader(ir4);
+    			
+    			
+    			
+    			
+    			OutputStream out4 = new FileOutputStream("./phoneDB.txt");
+    			OutputStreamWriter ow4 = new OutputStreamWriter(out4);
+    			BufferedWriter bw4 = new BufferedWriter(ow4);
+    			
     			break;
     		
     		case 5 :
